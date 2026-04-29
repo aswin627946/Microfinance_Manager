@@ -1,0 +1,24 @@
+[
+    {   
+        "loan_id": 136,
+        "borrower_id": 1,
+        "created_by":"admin",
+        "principal_amount": 10000,
+        "weekly_amount": 500,
+        "total_weeks": 25,
+        "start_date": "2023-01-01",
+        "status": 1,
+        "isSynced": 0
+    },
+    {   
+        "loan_id": 140,
+        "borrower_id": 2,
+        "created_by":"admin",
+        "principal_amount": 10000,
+        "weekly_amount": 500,
+        "total_weeks": 25,
+        "start_date": "2023-01-01",
+        "status": 0,
+        "isSynced": 0
+    }
+]

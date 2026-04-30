@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/loan_model.dart';
 import '../models/payments_model.dart';
+import '../models/borrower_model.dart';
 import '../services/database_helper.dart';
+import 'borrower_detail_screen.dart';
 
 class LoanDetailScreen extends StatelessWidget {
   final Loan loan;
@@ -27,53 +29,72 @@ class LoanDetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header Card
-              FutureBuilder<String>(
-                future: _getBorrowerName(),
+              FutureBuilder<Borrower?>(
+                future: _getBorrower(),
                 builder: (context, snapshot) {
-                  final borrowerName = snapshot.data ?? 'Loading...';
-                  return Card(
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '# ${loan.loanId}',
+                  final Borrower borrower = snapshot.data ?? Borrower(  
+                    borrowerId: -1,
+                    name: "Unknown Borrower",
+                    status: 0,
+                    phone: "9999999999",
+                    address: "123 Main St",
+                    latitude: 0.0,
+                    longitude: 0.0,
+                    createdAt: DateTime.now().toString(),
+                    isSynced: 0,
+                  );
+                  return GestureDetector(
+                    onTap:(){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:(context)=>
+                          BorrowerDetailScreen(borrower:borrower),
+                        ),);
+                    },
+                    child: Card(                    elevation: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '# ${loan.loanId}',
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Borrower: $borrower.name',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Chip(
+                                  label: Text(
+                                    loan.status,
                                     style: const TextStyle(
-                                      fontSize: 24,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Borrower: $borrowerName',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Chip(
-                                label: Text(
-                                  loan.status,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  backgroundColor: _getStatusColor(loan.status),
                                 ),
-                                backgroundColor: _getStatusColor(loan.status),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -504,10 +525,9 @@ class LoanDetailScreen extends StatelessWidget {
     }
   }
 
-  Future<String> _getBorrowerName() async {
-    final borrower =
-        await DatabaseHelper().getBorrowerById(loan.borrowerId);
-    return borrower?.name ?? 'Unknown Borrower';
+  Future<Borrower?> _getBorrower() async {
+    final borrower = await DatabaseHelper().getBorrowerById(loan.borrowerId);
+    return borrower;
   }
 
   String _formatDate(String dateString) {

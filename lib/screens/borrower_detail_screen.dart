@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/borrower_model.dart';
 import '../models/loan_model.dart';
+import 'loan_detail_screen.dart';
 import '../services/database_helper.dart';
 
 class BorrowerDetailScreen extends StatelessWidget {
@@ -232,71 +233,82 @@ class BorrowerDetailScreen extends StatelessWidget {
                     itemCount: loans.length,
                     itemBuilder: (context, index) {
                       final loan = loans[index];
-                      return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Loan #${loan.loanId}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
+                      return GestureDetector(
+                        onTap:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:(context)=>
+                                  LoanDetailScreen(loan:loan),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(vertical: 8),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Loan #${loan.loanId}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
                                     ),
-                                  ),
-                                  Chip(
-                                    label: Text(loan.status),
-                                    backgroundColor:
-                                        loan.status == 'Active'
-                                            ? Colors.green
-                                            : Colors.orange,
-                                    labelStyle:
-                                        const TextStyle(color: Colors.white),
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Principal:',
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
-                                  Text(
-                                    '\$${loan.principalAmount.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                    Chip(
+                                      label: Text(loan.status),
+                                      backgroundColor:
+                                          loan.status == 'Active'
+                                              ? Colors.green
+                                              : Colors.orange,
+                                      labelStyle:
+                                          const TextStyle(color: Colors.white),
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Weekly Amount:',
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
-                                  Text(
-                                    '\$${loan.weeklyAmount.toStringAsFixed(2)}',
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Principal:',
+                                      style: TextStyle(color: Colors.grey[600]),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    Text(
+                                      '\$${loan.principalAmount.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Weekly Amount:',
+                                      style: TextStyle(color: Colors.grey[600]),
+                                    ),
+                                    Text(
+                                      '\$${loan.weeklyAmount.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

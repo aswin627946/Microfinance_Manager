@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/borrower_model.dart';
-import '../models/loan_model.dart';
-import 'loan_detail_screen.dart';
-import '../services/database_helper.dart';
+import '../../models/borrower_model.dart';
+import '../../models/loan_model.dart';
+import '../loan/loan_detail_screen.dart';
+import '../../services/database_helper.dart';
 
 class BorrowerDetailScreen extends StatelessWidget {
   final Borrower borrower;

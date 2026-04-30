@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/borrower_model.dart';
-import '../services/database_helper.dart';
+import '../../models/borrower_model.dart';
+import '../../services/database_helper.dart';
+import './add_borrower_screen.dart';
 import 'borrower_detail_screen.dart';
 
 class BorrowersScreen extends StatefulWidget {
@@ -52,19 +53,31 @@ class _BorrowersScreenState extends State<BorrowersScreen> {
   }
 
   Future<void> _addBorrower() async {
-    final newBorrower = Borrower(
-      borrowerId: 0,
-      name: "New Borrower",
-      status: 1,
-      phone: "123-456-7890",
-      address: "123 Main St",
-      latitude: 0.0,
-      longitude: 0.0,
-      createdAt: DateTime.now().toString(),
-      isSynced: 0,
+    // final newBorrower = Borrower(
+    //   borrowerId: 0,
+    //   name: "New Borrower",
+    //   status: 1,
+    //   phone: "123-456-7890",
+    //   address: "123 Main St",
+    //   latitude: 0.0,
+    //   longitude: 0.0,
+    //   createdAt: DateTime.now().toString(),
+    //   isSynced: 0,
+    // );
+    // await DatabaseHelper().insertBorrower(newBorrower);
+    // _refreshBorrowers();
+
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AddBorrowerScreen(),
+      ),
     );
-    await DatabaseHelper().insertBorrower(newBorrower);
-    _refreshBorrowers();
+
+    if (result == true) {
+      _refreshBorrowers();
+    }
+
+
   }
 
   @override

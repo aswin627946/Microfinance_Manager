@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/loan_model.dart';
-import '../models/payments_model.dart';
-import '../models/borrower_model.dart';
-import '../services/database_helper.dart';
-import 'borrower_detail_screen.dart';
+import '../../models/loan_model.dart';
+import '../../models/payments_model.dart';
+import '../../models/borrower_model.dart';
+import '../../services/database_helper.dart';
+import '../borrower/borrower_detail_screen.dart';
 
 class LoanDetailScreen extends StatelessWidget {
   final Loan loan;

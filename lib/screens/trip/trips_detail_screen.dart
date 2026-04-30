@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../services/database_helper.dart';
-import '../models/trip_item_model.dart';
-import '../models/borrower_model.dart';
+import '../../services/database_helper.dart';
+import '../../models/trip_item_model.dart';
+import '../../models/borrower_model.dart';
 
 class TripDetailScreen extends StatefulWidget {
   final int tripId;

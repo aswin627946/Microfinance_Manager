@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/loan_model.dart';
-import '../services/database_helper.dart';
+import '../../models/loan_model.dart';
+import '../../services/database_helper.dart';
 import 'loan_detail_screen.dart';
 
 class LoansScreen extends StatefulWidget {

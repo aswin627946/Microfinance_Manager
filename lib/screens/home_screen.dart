@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'trips_screen.dart';
-import 'borrowers_screen.dart';
-import 'loans_screen.dart';
+import 'trip/trips_screen.dart';
+import 'borrower/borrowers_screen.dart';
+import 'loan/loans_screen.dart';
 import 'dashboard_screen.dart';
 
 class HomeScreen extends StatefulWidget {

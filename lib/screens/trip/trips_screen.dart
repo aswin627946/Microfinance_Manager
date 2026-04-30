@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/database_helper.dart';
+import '../../services/database_helper.dart';
 import 'trips_detail_screen.dart';
 
 class TripsScreen extends StatefulWidget {

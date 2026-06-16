@@ -22,6 +22,7 @@ class _AddBorrowerScreenState extends State<AddBorrowerScreen>{
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
+    print("here");
     
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -50,23 +51,33 @@ class _AddBorrowerScreenState extends State<AddBorrowerScreen>{
   Future<void> _saveBorrower() async {
     if (!_formKey.currentState!.validate() && !await _handleLocationPermission()) return;
 
-    Position position = await Geolocator.getCurrentPosition();
     setState(()=> isLoading = true);
 
-    final borrower = Borrower(
-      name:nameController.text.trim(),
-      status:1,
-      phone: phoneController.text.trim(),
-      address: addressController.text.trim(),
-      latitude: position.latitude,
-      longitude: position.longitude,
-      createdAt: DateTime.now().toString(),
-      isSynced: 0,
-    );
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      
+      final borrower = Borrower(
+        name:nameController.text.trim(),
+        status:1,
+        phone: phoneController.text.trim(),
+        address: addressController.text.trim(),
+        latitude: position.latitude,
+        longitude: position.longitude,
+        createdAt: DateTime.now().toString(),
+        isSynced: 0,
+      );
 
-    await DatabaseHelper().insertBorrower(borrower);
-    setState(()=> isLoading = false);
-    Navigator.pop(context, true);
+      await DatabaseHelper().insertBorrower(borrower);
+      setState(()=> isLoading = false);
+      Navigator.pop(context, true);
+    } catch (e) {
+      setState(()=> isLoading = false);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error getting location: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   @override

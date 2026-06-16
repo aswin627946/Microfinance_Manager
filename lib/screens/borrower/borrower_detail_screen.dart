@@ -208,7 +208,7 @@ class BorrowerDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               FutureBuilder<List<Loan>>(
-                future: DatabaseHelper().getLoansByBorrowerId(borrower.borrowerId),
+                future: DatabaseHelper().getLoansByBorrowerId(borrower.borrowerId!),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -284,7 +284,7 @@ class BorrowerDetailScreen extends StatelessWidget {
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                     Text(
-                                      '\$${loan.principalAmount.toStringAsFixed(2)}',
+                                      '₹${loan.principalAmount.toStringAsFixed(2)}',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -300,7 +300,7 @@ class BorrowerDetailScreen extends StatelessWidget {
                                       style: TextStyle(color: Colors.grey[600]),
                                     ),
                                     Text(
-                                      '\$${loan.weeklyAmount.toStringAsFixed(2)}',
+                                      '₹${loan.weeklyAmount.toStringAsFixed(2)}',
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),

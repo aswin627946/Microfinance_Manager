@@ -1,5 +1,5 @@
 class Borrower {
-  final int borrowerId;
+  final int? borrowerId;
   final String name;
   final int status;
   final String phone;
@@ -11,7 +11,7 @@ class Borrower {
   final int isSynced; // 0 = not synced, 1 = synced
 
   Borrower({
-    required this.borrowerId,
+    this.borrowerId,
     required this.name,
     required this.status,
     required this.phone,

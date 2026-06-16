@@ -141,14 +141,14 @@ class _BorrowersScreenState extends State<BorrowersScreen> {
                               child: ListTile(
                                 title: Text(borrower.name),
                                 subtitle: Text(borrower.phone),
-                                trailing: Icon(
-                                  borrower.isSynced == 1
-                                      ? Icons.cloud_done
-                                      : Icons.cloud_off,
-                                  color: borrower.isSynced == 1
-                                      ? Colors.green
-                                      : Colors.grey,
-                                ),
+                                // trailing: Icon(
+                                //   borrower.isSynced == 1
+                                //       ? Icons.cloud_done
+                                //       : Icons.cloud_off,
+                                //   color: borrower.isSynced == 1
+                                //       ? Colors.green
+                                //       : Colors.grey,
+                                // ),
                               ),
                             ),
                           );

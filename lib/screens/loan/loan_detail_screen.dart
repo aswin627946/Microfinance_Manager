@@ -73,7 +73,7 @@ class LoanDetailScreen extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      'Borrower: $borrower.name',
+                                      'Borrower: ${borrower.name}',
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: Colors.grey,
@@ -124,7 +124,7 @@ class LoanDetailScreen extends StatelessWidget {
                   Expanded(
                     child: _buildAmountCard(
                       label: 'Weekly Amount',
-                      amount: '\$$weeklyAmount',
+                      amount: '₹$weeklyAmount',
                       icon: Icons.trending_up,
                       color: Colors.green,
                     ),
@@ -133,7 +133,7 @@ class LoanDetailScreen extends StatelessWidget {
                   Expanded(
                     child: _buildAmountCard(
                       label: 'Total Amount',
-                      amount: '\$$totalAmount',
+                      amount: '₹$totalAmount',
                       icon: Icons.summarize,
                       color: Colors.green,
                     ),
@@ -362,7 +362,7 @@ class LoanDetailScreen extends StatelessWidget {
                                             TextStyle(color: Colors.grey[600]),
                                       ),
                                       Text(
-                                        '\$${payment.amountPaid.toStringAsFixed(2)}',
+                                        '₹${payment.amountPaid.toStringAsFixed(2)}',
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.green,
@@ -409,7 +409,7 @@ class LoanDetailScreen extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '\$$totalPaid',
+                              '₹$totalPaid',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.blue,
@@ -514,7 +514,7 @@ class LoanDetailScreen extends StatelessWidget {
 
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case 'active':
+      case '1':
         return Colors.green;
       case 'closed':
         return Colors.blue;

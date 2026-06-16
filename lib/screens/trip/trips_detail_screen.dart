@@ -117,8 +117,6 @@ class _TripDetailScreenState extends State<TripDetailScreen>
   }
 
   Widget buildSummary() {
-    if (summary == null) return const SizedBox();
-
     return Card(
       margin: const EdgeInsets.all(10),
       child: Padding(
@@ -126,10 +124,10 @@ class _TripDetailScreenState extends State<TripDetailScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Total Loans: ${summary!['totalLoans']}"),
-            Text("Expected: ₹${summary!['expected']}"),
-            Text("Collected: ₹${summary!['collected']}"),
-            Text("Remaining: ₹${summary!['remaining']}"),
+            Text("Total Loans: ${summary['totalLoans']}"),
+            Text("Expected: ₹${summary['expected']}"),
+            Text("Collected: ₹${summary['collected']}"),
+            Text("Remaining: ₹${summary['remaining']}"),
           ],
         ),
       ),

@@ -140,11 +140,13 @@ class _LoansScreenState extends State<LoansScreen> {
                                   return ListTile(
                                     title: Text('Loan #${loan.loanId}'),
                                     subtitle: Text(
-                                        'Borrower: $borrowerName | Amount: \$${loan.principalAmount.toStringAsFixed(2)}'),
+                                        'Borrower: $borrowerName | Amount: ₹${loan.principalAmount.toStringAsFixed(2)}'),
                                     trailing: Chip(
-                                      label: Text(loan.status),
+                                      label: loan.status == '1'
+                                          ? const Text('Active')
+                                          : const Text('Inactive'),
                                       backgroundColor:
-                                          loan.status == 'Active'
+                                          loan.status == '1'
                                               ? Colors.green
                                               : Colors.orange,
                                       labelStyle:

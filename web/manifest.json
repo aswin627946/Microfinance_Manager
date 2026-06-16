@@ -1,6 +1,6 @@
 {
-    "name": "simple_calculator",
-    "short_name": "simple_calculator",
+    "name": "microfinance_manager",
+    "short_name": "microfinance_manager",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

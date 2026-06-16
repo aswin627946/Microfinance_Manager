@@ -3,6 +3,7 @@ import '../../models/borrower_model.dart';
 import '../../models/loan_model.dart';
 import '../loan/loan_detail_screen.dart';
 import '../../services/database_helper.dart';
+import '../../services/phone_dialer.dart';
 
 class BorrowerDetailScreen extends StatelessWidget {
   final Borrower borrower;
@@ -76,10 +77,15 @@ class BorrowerDetailScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              _buildInfoCard(
-                icon: Icons.phone,
-                label: 'Phone',
-                value: borrower.phone,
+              GestureDetector(
+                onTap: () {
+                  callPhoneNumber(borrower.phone);
+                },
+                child: _buildInfoCard(
+                  icon: Icons.phone,
+                  label: 'Phone',
+                  value: borrower.phone,
+                ),
               ),
               _buildInfoCard(
                 icon: Icons.location_on,

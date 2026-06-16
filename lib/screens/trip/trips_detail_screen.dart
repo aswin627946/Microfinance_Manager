@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../services/database_helper.dart';
 import '../../models/trip_item_model.dart';
 import '../../models/borrower_model.dart';
+import '../../services/phone_dialer.dart';
 
 class TripDetailScreen extends StatefulWidget {
   final int tripId;
@@ -105,10 +106,19 @@ class _TripDetailScreenState extends State<TripDetailScreen>
             subtitle: Text(
                 "₹${item.collectedAmount} / ₹${item.expectedAmount}"),
             trailing: item.status != 'completed'
-                ? IconButton(
-                    icon: const Icon(Icons.payment),
-                    onPressed: () => makePayment(item),
-                  )
+                ?Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.payment),
+                      onPressed: () => makePayment(item),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.call),
+                      onPressed: () => callPhoneNumber(borrower?.phone ?? ""),
+                    ),  
+                  ],
+                )
                 : const Icon(Icons.check, color: Colors.green),
           ),
         );

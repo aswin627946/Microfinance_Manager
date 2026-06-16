@@ -49,7 +49,9 @@ class _AddBorrowerScreenState extends State<AddBorrowerScreen>{
 
 
   Future<void> _saveBorrower() async {
-    if (!_formKey.currentState!.validate() && !await _handleLocationPermission()) return;
+    if (!_formKey.currentState!.validate())return;
+
+    if (!await _handleLocationPermission()) return;
 
     setState(()=> isLoading = true);
 

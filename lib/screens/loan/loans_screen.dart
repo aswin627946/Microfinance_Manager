@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/loan_model.dart';
 import '../../services/database_helper.dart';
+import 'add_loan_screen.dart';
 import 'loan_detail_screen.dart';
 
 class LoansScreen extends StatefulWidget {
@@ -57,20 +58,31 @@ class _LoansScreenState extends State<LoansScreen> {
   }
 
   Future<void> _addLoan() async {
-    final newLoan = Loan(
-      loanId: 0,
-      borrowerId: 1,
-      createdBy: "Admin",
-      principalAmount: 10000,
-      weeklyAmount: 500,
-      totalWeeks: 25,
-      startDate: DateTime.now().toString(),
-      status: "Active",
-      createdAt: DateTime.now().toString(),
-      isSynced: 0,
+    // final newLoan = Loan(
+    //   loanId: 0,
+    //   borrowerId: 1,
+    //   createdBy: "Admin",
+    //   principalAmount: 10000,
+    //   weeklyAmount: 500,
+    //   totalWeeks: 25,
+    //   startDate: DateTime.now().toString(),
+    //   status: "Active",
+    //   createdAt: DateTime.now().toString(),
+    //   isSynced: 0,
+    // );
+    // await DatabaseHelper().insertLoan(newLoan);
+    // _refreshLoans();
+
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AddLoanScreen(),
+
+      ),
     );
-    await DatabaseHelper().insertLoan(newLoan);
-    _refreshLoans();
+
+    if (result == true) {
+      _refreshLoans();
+    }
   }
 
   @override

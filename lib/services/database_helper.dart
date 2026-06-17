@@ -320,13 +320,27 @@ class DatabaseHelper {
 
     final data = result.first;
 
+    final query = await db.rawQuery('''
+      SELECT
+        SUM(CASE WHEN LOWER(payment_type) = 'cash' THEN amount_paid ELSE 0 END) as total_collected_cash,
+        SUM(CASE WHEN LOWER(payment_type) = 'upi' THEN amount_paid ELSE 0 END) as total_collected_upi
+      FROM payments
+      WHERE trip_id = ?
+    ''', [tripId]);
+
+    final paymentData = query.first;
+
     double expected = (data['total_expected'] as num?)?.toDouble() ?? 0;
     double collected = (data['total_collected'] as num?)?.toDouble() ?? 0;
+    double collectedCash = (paymentData['total_collected_cash'] as num?)?.toDouble() ?? 0;
+    double collectedUpi = (paymentData['total_collected_upi'] as num?)?.toDouble() ?? 0;
 
     return {
       'totalLoans': data['total_loans'] ?? 0,
       'expected': expected,
       'collected': collected,
+      'collectedCash': collectedCash,
+      'collectedUpi': collectedUpi,
       'remaining': expected - collected,
     };
   }

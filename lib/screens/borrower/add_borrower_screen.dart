@@ -65,6 +65,7 @@ class _AddBorrowerScreenState extends State<AddBorrowerScreen>{
         address: addressController.text.trim(),
         latitude: position.latitude,
         longitude: position.longitude,
+        city:"unknown",
         createdAt: DateTime.now().toString(),
         isSynced: 0,
       );

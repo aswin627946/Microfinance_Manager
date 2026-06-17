@@ -6,6 +6,7 @@ class Borrower {
   final String address;
   final double latitude;
   final double longitude;
+  final String city;
   final String createdAt;
   final String? updatedAt;
   final int isSynced; // 0 = not synced, 1 = synced
@@ -18,6 +19,7 @@ class Borrower {
     required this.address,
     required this.latitude,
     required this.longitude,
+    required this.city,
     required this.createdAt,
     this.updatedAt,
     this.isSynced = 0,
@@ -33,6 +35,7 @@ class Borrower {
       'address': address,
       'latitude': latitude,
       'longitude': longitude,
+      'city': city,
       'created_at': createdAt,
       'updated_at': updatedAt,
       'isSynced': isSynced,
@@ -49,6 +52,7 @@ class Borrower {
       address: map['address'],
       latitude: map['latitude'] != null ? map['latitude'] * 1.0 : null,
       longitude: map['longitude'] != null ? map['longitude'] * 1.0 : null,
+      city: map['city'],
       createdAt: map['created_at'],
       updatedAt: map['updated_at'],
       isSynced: map['isSynced'] ?? 0,

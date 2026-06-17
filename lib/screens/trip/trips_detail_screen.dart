@@ -184,6 +184,7 @@ class _TripDetailScreenState extends State<TripDetailScreen>
                     address: "123 Main St",
                     latitude: 0.0,
                     longitude: 0.0,
+                    city:"unknown",
                     createdAt: DateTime.now().toString(),
                     isSynced: 0,
                   );

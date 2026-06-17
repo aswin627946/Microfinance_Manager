@@ -4,6 +4,9 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
+import 'package:share_plus/share_plus.dart';
+import 'package:file_picker/file_picker.dart';
 
 import '../models/borrower_model.dart';
 import '../models/loan_model.dart';
@@ -21,6 +24,66 @@ class DatabaseHelper {
     if (_database != null) return _database!;
     _database = await _initDatabase();
     return _database!;
+  }
+
+  Future<void> exportDatabase() async {
+    final String path;
+
+    try{
+      if (kIsWeb)
+        path = 'microfinance.db';
+      else {
+        final String basePath = await getDatabasesPath();
+        path = join(basePath, 'microfinance.db');
+      }
+
+      final dbFile = File(path);
+
+      if (await dbFile.exists()){
+        await Share.shareXFiles([XFile(path)], text: 'Microfinance Manager Database Backup');
+      }
+      else {
+        print('Database file not found at path: $path');
+      }
+    } catch (e) {
+      print('Error exporting database: $e');
+    }
+
+  }
+
+  Future<void> importDatabase() async{
+    try{
+      FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.any);
+      if (result != null && result.files.single.path != null) {
+      File selectedFile = File(result.files.single.path!);
+
+      // Basic validation to ensure they picked a database file
+      if (!selectedFile.path.endsWith('.db') && !selectedFile.path.endsWith('.sqlite')) {
+        print('Please select a valid database file.');
+        return;
+      }
+
+      // 2. Get the current database path
+      final dbFolder = await getDatabasesPath();
+      final dbPath = join(dbFolder, 'microfinance.db'); // Replace with your DB name
+
+      // 3. CLOSE THE CURRENT DATABASE CONNECTION!
+      // If you have a singleton DatabaseHelper, call your close method here.
+      
+      // 4. Overwrite the existing database file with the new one
+      await selectedFile.copy(dbPath);
+      
+      print('Database successfully imported!');
+      
+      // 5. Restart your app's state or re-initialize the database connection
+      // Example: await DatabaseHelper.instance.initDb();
+      
+      } else {
+        print('User canceled the picker.');
+      }
+    } catch (e) {
+      print('Error importing database: $e');
+    }
   }
 
   Future<Database> _initDatabase() async {
@@ -57,6 +120,7 @@ class DatabaseHelper {
         address TEXT NOT NULL,
         latitude REAL,
         longitude REAL,
+        city TEXT NOT NULL,
         created_at TEXT NOT NULL,
         updated_at TEXT,
         isSynced INTEGER NOT NULL
@@ -79,6 +143,7 @@ class DatabaseHelper {
           'address': borrower['address'],
           'latitude': borrower['latitude'],
           'longitude': borrower['longitude'],
+          'city': borrower['city'] ?? "unknown",
           'created_at': DateTime.now().toString(),
           'updated_at': borrower['updated_at'],
           'isSynced': borrower['isSynced'] ?? 0,

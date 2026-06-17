@@ -103,7 +103,7 @@ class _AddLoanScreen extends State<AddLoanScreen> {
         weeklyAmount: weeklyAmount,
         totalWeeks: totalWeeks,
         startDate: DateTime.now().toString(),
-        status: 'Active',
+        status: '1',
         createdAt: DateTime.now().toString(),
         isSynced: 0,
       );

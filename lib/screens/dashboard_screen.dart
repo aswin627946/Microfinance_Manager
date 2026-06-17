@@ -35,6 +35,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.download),
+            tooltip: 'Export Database',
+            onPressed: () async {
+              await DatabaseHelper().exportDatabase();
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Database exported successfully')),
+                );
+              }
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.upload),
+            tooltip: 'Import Database',
+            onPressed: () async {
+              await DatabaseHelper().importDatabase();
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Database imported successfully')),
+                );
+                // Reload stats after import
+                _loadStats();
+              }
+            },
+          ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

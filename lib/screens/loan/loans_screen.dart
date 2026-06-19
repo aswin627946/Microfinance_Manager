@@ -131,6 +131,7 @@ class _LoansScreenState extends State<LoansScreen> {
                         itemCount: _filteredLoans.length,
                         itemBuilder: (context, index) {
                           final loan = _filteredLoans[index];
+                          final amount = loan.weeklyAmount * loan.totalWeeks;
                           return GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -152,7 +153,7 @@ class _LoansScreenState extends State<LoansScreen> {
                                   return ListTile(
                                     title: Text('Loan #${loan.loanId}'),
                                     subtitle: Text(
-                                        'Borrower: $borrowerName | Amount: ₹${loan.principalAmount.toStringAsFixed(2)}'),
+                                        'Borrower: $borrowerName | Amount: ₹${amount.toStringAsFixed(2)}'),
                                     trailing: Chip(
                                       label: loan.status == '1'
                                           ? const Text('Active')
